@@ -56,3 +56,4 @@ build/
 logs/
 lib/
 nohup.out
+settings.yml

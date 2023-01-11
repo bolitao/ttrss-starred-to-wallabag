@@ -1,0 +1,11 @@
+ttrss_url: https://rss.bolitao.xyz/plugins/fever
+fever_username: admin
+fever_password: password
+wallabag_url: https://wallabag.bolitao.xyz
+wallabag_username: bolitao
+wallabag_password: password
+wallabag_api_key: key
+wallabag_api_secret: secret
+use_proxy: true
+proxy_host: 192.168.31.5
+proxy_port: 10809
