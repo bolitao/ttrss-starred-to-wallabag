@@ -1,6 +1,6 @@
-# ttrsstowallabag
+# ttrss-starred-to-wallabag
 
-Tiny-Tiny-RSS starred articles to wallabag.
+Trans Tiny-Tiny-RSS starred articles to wallabag.
 
 ## Usage
 
