@@ -7,8 +7,6 @@ import kong.unirest.Unirest;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.yaml.snakeyaml.Yaml;
 import xyz.bolitao.ttrsstowallabag.model.AddWallabag;
 import xyz.bolitao.ttrsstowallabag.model.InputInfo;
@@ -28,7 +26,8 @@ public class App {
         // InputInfo inputInfo = getInputInfo();
         InputInfo inputInfo = App.getConfigFromYml();
         String feverApiKey = DigestUtils.md5Hex(inputInfo.getTtrssUsername() + ":" + inputInfo.getTtrssPassword());
-        System.out.println("fever api key: " + feverApiKey);
+        long programStartTs = System.currentTimeMillis();
+        System.out.println("start time: " + programStartTs + ", fever api key: " + feverApiKey);
         HttpResponse<String> response = Unirest.get(inputInfo.getTtrssUrl() + "/?api_key=" + feverApiKey + "&saved_item_ids=").asString();
         List<String> savedItemIds = Arrays.stream(new JSONObject(response.getBody()).get("saved_item_ids").toString().split(",")).collect(Collectors.toList());
         List<List<String>> partition = Lists.partition(savedItemIds, 50);
@@ -72,8 +71,6 @@ public class App {
                     int feedId = articleJson.getInt("feed_id");
                     int id = articleJson.getInt("id");
                     System.out.printf("id: %s, title: %s\n", id, title);
-                    Document document = Jsoup.parse(html);
-                    // System.out.println(id + " " + document.body());
 
                     AddWallabag addWallabag = new AddWallabag(url, html, title);
 
@@ -101,6 +98,8 @@ public class App {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            long programEndTs = System.currentTimeMillis();
+            System.out.printf("finish time: %s, used %s minutes\n", programEndTs, Math.ceil((programEndTs - programStartTs) / (1000 * 60.0)));
         }
     }
 

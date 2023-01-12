@@ -7,13 +7,13 @@ import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.junit.Test;
 import org.yaml.snakeyaml.Yaml;
 import xyz.bolitao.ttrsstowallabag.model.AddWallabag;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
@@ -71,8 +71,6 @@ public class AppTest {
                     int feedId = articleJson.getInt("feed_id");
                     int id = articleJson.getInt("id");
                     System.out.printf("id: %s, title: %s\n", id, title);
-                    Document document = Jsoup.parse(html);
-                    // System.out.println(id + " " + document.body());
 
                     AddWallabag addWallabag = new AddWallabag(url, html, title);
 
